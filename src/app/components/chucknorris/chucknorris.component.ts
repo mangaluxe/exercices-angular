@@ -20,11 +20,15 @@ Créer un nouveau composant, ChuckNorris.
 })
 export class ChucknorrisComponent {
 
+  // Ajouter provideHttpClient() dans app.config.ts : providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideHttpClient()]
+
   // ----- Propriétés -----
 
   blague: string = '';
 
-  
+  private apiUrl: string = "https://api.chucknorris.io/jokes/random";
+
+
   // ----- Constructeur -----
 
   constructor(private http: HttpClient) {
@@ -41,13 +45,13 @@ export class ChucknorrisComponent {
   // }
 
   // getBlague(): Observable<any> {
-  //   return this.http.get('https://api.chucknorris.io/jokes/random');
+  //   return this.http.get(this.apiUrl);
   // }
 
 
   // Marche aussi :
   loadBlague() {
-    return this.http.get('https://api.chucknorris.io/jokes/random').subscribe((data: any) => {
+    return this.http.get(this.apiUrl).subscribe((data: any) => {
       this.blague = data.value;
     });
   }
