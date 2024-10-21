@@ -1,0 +1,142 @@
+<main>
+
+    <h1>Formulaire</h1>
+
+    <section>
+        <h2>Template driven forms</h2>
+
+        <h3>Sans le two way binding</h3>
+
+        <div>
+            <label for="mes">Message :
+                <input type="text" id="mes" [value]="message" (input)="updateMessage($event)">
+            </label>
+        </div>
+        <p>Message : {{ message }}</p>
+
+
+
+        <hr>
+        <h3>Avec le two way binding</h3>
+
+        <div>
+            <label for="mes2">Message :
+                <input type="text" id="mes2" [(ngModel)]="message2">
+                <!-- Ajouter dans formulaire.component.ts :  imports: [FormsModule], -->
+            </label>
+        </div>
+        <p>Message : {{ message2 }}</p>
+
+
+
+        <hr>
+        <h3>Formulaire</h3>
+
+        <form (ngSubmit)="submitUser()">
+            <div>
+                <label for="nom">Nom :
+                    <input type="text" id="nom" name="nom" [(ngModel)]="user.nom">
+                </label>
+            </div>
+
+            <div>
+                <label for="email">Email :
+                    <input type="email" id="email" name="email" [(ngModel)]="user.email">
+                </label>
+            </div>
+
+            <div>
+                <label for="password">Mot de passe :
+                    <input type="password" id="password" name="password" [(ngModel)]="user.password">
+                </label>
+            </div>
+            @if (checkPassword) {
+                <p>Mot de passe trop court</p>
+            }
+
+            <button class="btn">Inscrire</button>
+
+        </form>
+
+    </section>
+
+
+    <hr>
+    <h2>Formulaire réactif</h2>
+
+    <section>
+
+        <form (ngSubmit)="saveBook()">
+            <label for="book">Livre :
+                <input type="text" id="book" [formControl]="book_control" class="mr-2">
+            </label>
+
+            @if (book_control.invalid && book_control.touched) {
+                @if (book_control.hasError('required')) {
+                    <p>Champs obligatoire</p>
+                }
+                @else if (book_control.hasError('minLenght')) {
+                    <p>Trop court</p>
+                }
+            }
+
+            <button class="btn">Sauvegarder</button>
+        </form>
+
+    </section>
+
+
+
+
+    <hr>
+    <h2>Form group</h2>
+
+    <!-- Associe le formulaire à un groupe de formulaire nommé "formation_form" et définit une fonction à appeler lorsque le formulaire est soumis -->
+    <form [formGroup]="formation_form" (ngSubmit)="saveFormation()">
+        <div>
+            <label for="titre">Titre
+                <input type="text" id="titre" formControlName="title">
+            </label>
+        </div>
+
+        <div>
+            <label for="duree">Durée
+                <input type="text" id="duree" formControlName="duration">
+            </label>
+        </div>
+
+        <fieldset formGroupName="trainer" class="mt-5">
+            <legend>Formateur</legend>
+            <div>
+                <label for="prenom">Prénom
+                    <input type="text" id="prenom" formControlName="firstname">
+                </label>
+            </div>
+    
+            <div>
+                <label for="nom">Nom
+                    <input type="text" id="nom" formControlName="lastname">
+                </label>
+            </div>
+
+        </fieldset>
+
+        <fieldset formGroupName="modules" class="mt-5">
+            <legend>modules</legend>
+            @for (control of modules.controls; track control; let i = $index) {
+                <div>
+                    <label [for]="'module' + $index">Module {{$index + 1}} : 
+                        <input type="text" [id]="'module' + $index" [formControlName]="$index">
+                    </label>
+                </div>
+            }
+            <button (click)="addModule()" class="mini-btn mt-2">Ajouter un module</button>
+        </fieldset>
+
+        <button class="btn">Sauvegarder</button>
+
+    </form>
+
+
+</main>
+

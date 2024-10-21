@@ -1,0 +1,113 @@
+<main>
+
+    <h1>Création de fiche Pokémon</h1>
+
+    <section>
+
+        <form [formGroup]="pokemon_form" (ngSubmit)="ajoutPokemon()">
+            <div>
+                <label for="nom">Nom : 
+                    <input type="text" id="nom" formControlName="nom">
+                </label>
+            </div>
+
+
+            <div>
+                <label for="description">Description : 
+                    <textarea id="description" formControlName="description"></textarea>
+                </label>
+            </div>
+
+
+            <div>
+                <label for="types">Types :<br>
+                    <select name="types" id="types" multiple formControlName="types">
+                        @for (type of types; track type; let i = $index) {
+                            <option [value]="type">{{ type }}</option>
+                        }
+                    </select>
+                </label>
+            </div>
+
+
+            <!-- <fieldset formGroupName="types" class="mt-5">
+                <legend>Types :</legend>
+                @for (control of types.controls; track control; let i = $index) {
+                    <div>
+                        <label [for]="'type' + i">Type {{i + 1}} : 
+                            <input type="text" [id]="'type' + i" [formControlName]="i">
+                        </label>
+                    </div>
+                }
+
+                <button (click)="ajoutType()" class="mini-btn mt-2" type="button">Ajouter un type</button>
+            </fieldset> -->
+
+
+            <fieldset formGroupName="attaques" class="mt-5">
+                <legend>Attaques</legend>
+
+                @for (control of attaques.controls; track control; let i = $index) {
+                    <div [formGroupName]="$index">
+                        <div>
+                            <label [for]="'attaque' + i">Nom : 
+                                <input type="text" [id]="'attaque' + i" formControlName="nom">
+                            </label>
+                        </div>
+                        <div>
+                            <label [for]="'description' + i">Description : 
+                                <input type="text" [id]="'description' + i" formControlName="description">
+                            </label>
+                        </div>
+                        <div>
+                            <label [for]="'degats' + i">Dégâts : 
+                                <input type="number" [id]="'degats' + i" formControlName="degats">
+                            </label>
+                        </div>
+                    </div>
+
+                    <hr>
+                }
+                <button (click)="ajoutAttaque()" class="mini-btn mt-2" type="button">Ajouter une attaque</button>
+            </fieldset>
+
+
+            <fieldset formGroupName="zone" class="mt-5">
+                <legend>Zone</legend>
+                <div>
+                    <label for="nom_zone">Nom : 
+                        <input type="text" id="nom_zone" formControlName="nom">
+                    </label>
+                </div>
+
+                <div>
+                    <label for="region">Région : 
+                        <input type="text" id="region" formControlName="region">
+                    </label>
+                </div>
+
+            </fieldset>
+
+
+            <button class="btn" type="submit">Ajouter</button>
+    
+        </form>
+
+    </section>
+
+    <hr>
+
+    @for (pokemon of pokemons; track pokemon; let i = $index) {
+        <div class="box mt-5 box-padding">
+            <!-- <app-pokemon-card [pokemon]="pokemon" (dataEmitted)="handleData($event)"/> -->
+
+            <app-pokemon-card [pokemon]="pokemon" (deleteEvent)="supprimerPokemon($event)"/>
+
+            <!-- <p>{{ receiveData }}</p> -->
+        </div>
+    }
+    @empty {
+        <p>Aucun Pokémon</p>
+    }
+
+</main>

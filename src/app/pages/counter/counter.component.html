@@ -1,0 +1,13 @@
+<main>
+
+    <h1>{{ titre }}</h1>
+    
+    <p>Nombre : {{ nb }}</p>
+    <p [class]="color"><strong>Nombre: {{ nb }}</strong></p>
+    
+    <div>
+        <button (click)="moins()" class="btn mr-2">-</button>
+        <button (click)="plus()" class="btn">+</button>
+    </div>
+
+</main>

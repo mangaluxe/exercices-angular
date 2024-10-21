@@ -1,0 +1,18 @@
+<main>
+
+    <button (click)="refresh()" class="btn mr-2">Rafraichir (Recup despuis localStorage)</button>
+    <button (click)="addForm()" class="btn">Ajouter une formation</button>
+
+    <section>
+        @for (form of formations; track form) {
+            <h3>{{form.title}}</h3>
+        }
+        @empty {
+            <p>Aucune formation</p>
+        }
+    </section>
+
+    <app-lifecycle [data]="'Ma valeur 1'"/>
+    <app-lifecycle [data]="'Ma valeur 2'"/>
+
+</main>

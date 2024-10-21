@@ -1,0 +1,29 @@
+<div class="pokemon-card">
+
+    <h2>{{ pokemon.nom }}</h2>
+
+    <p><strong>Description :</strong> {{ pokemon.description }}</p>
+
+    <p><strong>Type{{(pokemon.types.length > 1) ? 's' : '' }} : </strong> <span [ngClass]="getTypeColor(pokemon.types[0])">{{ pokemon.types.join(', ') }}</span></p>
+
+    <!-- Importer dans pokemon-card.component.ts : imports: [CommonModule], -->
+
+    <fieldset>
+        <legend>Attaques</legend>
+        <ul class="li-arrow">
+        @for (attaque of pokemon.attaques; track attaque; let i = $index) {
+            <li>
+                <strong>{{ attaque.nom }}</strong> : {{ attaque.description }} (Dégâts: {{ attaque.degats }})
+            </li>
+        }
+        </ul>
+    </fieldset>
+
+    <p><strong>Zone :</strong> {{ pokemon.zone.nom }} - {{ pokemon.zone.region }}</p>
+
+
+    <!-- Envoi données enfant au parent : Supprimer le Pokémon -->
+    <!-- <button (click)="sendData()" class="mini-btn">Supprimer</button> -->
+    <button (click)="supprimerPokemon()" class="mini-btn">Supprimer</button>
+
+</div>

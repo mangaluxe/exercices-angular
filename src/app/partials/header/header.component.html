@@ -1,0 +1,67 @@
+<header class="header">
+
+  <div class="header-top">
+    <ul class="px-2">
+      <!-- <li><a href="#" target="_blank">Forum</a></li>
+  <li><a href="#" target="_blank">Tchat</a></li> -->
+    </ul>
+    <ul class="px-2">
+      <li><a href="#" target="_blank" class="icon-f"></a></li>
+      <li><a href="#" target="_blank" class="icon-t"></a></li>
+      <li><a href="#" target="_blank" class="icon-i"></a></li>
+      <li><a href="#" target="_blank" class="icon-y"></a></li>
+    </ul>
+  </div>
+
+  <div class="header-nav"> <!-- Sur tablette/mobile, il prend 100% height (et x% width si menu-active) -->
+    <div class="header-nav-child1">
+      <div class="container-burger tablet" id="open_menuburger">
+        <div class="container-burger-in">
+          <div>
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+          </div>
+          <div>Menu</div>
+        </div>
+      </div>
+      <a routerLink="/" class="logo"><img src="assets/img/logo.svg" alt=""></a>
+
+
+      <div id="my_overlay" class="my-overlay">
+        <!-- On ajoute un conteneur autour de la nav comme "overlay" pour pouvoir fermer le menu sur mobile en cliquant partout ailleurs -->
+
+        <nav class="nav-icon">
+          <ul class="ul-1">
+            <li><a routerLink="/librairie">Librairie</a></li>
+            <li><a routerLink="/pokemon">Pokémon</a></li>
+            <li class="dropdown"> <!-- Gagne la class .active pour ouvrir sous-menu -->
+              <div>
+                <span class="drop-a">Autres</span>
+                <div class="open-submenu"></div> <!-- Apparait que sur mobile (avec symbole + et -) -->
+              </div>
+              <div class="dropdown-content"> <!-- Caché par défaut -->
+                <ul class="ul-2">
+                  <li><a routerLink="/pipes">Pipes</a></li>
+                  <li><a routerLink="/block">Block</a></li>
+                  <li><a routerLink="/series">Séries</a></li>
+                  <li><a routerLink="/counter">Compteur</a></li>
+                  <li><a routerLink="/formulaire">Formulaire</a></li>
+                  <li><a routerLink="/jesuisperdu">Je suis perdu</a></li>
+                  <li><a routerLink="/formations">Formations (service)</a></li>
+                  <li><a routerLink="/chucknorris">Chuck Norris</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </nav>
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+</header>

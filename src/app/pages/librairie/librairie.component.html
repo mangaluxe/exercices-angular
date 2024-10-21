@@ -1,0 +1,41 @@
+<main>
+    
+    <h2>Ma Librairie  ༼ つ ◕_◕ ༽つ</h2>
+
+    <ul class="li-arrow">
+    @for (b of books; track b; let i = $index) {
+
+        <li class="mt-2">
+            {{ b.title }} - {{ b.author }} - {{ b.isRead ? 'Lu 👍' : 'Non lu 👎' }}
+
+            <button (click)="toggleLu(b)" class="mini-btn">{{ b.isRead ? 'Marquer comme lu' : 'Marquer comme non lu' }}</button>
+        </li>
+
+    }
+    @empty {
+        <p>Liste vide</p>
+    }
+    </ul>
+
+
+    <hr class="mt-5 mb-5">
+    <h3>Formulaire</h3>
+
+    <form (ngSubmit)="ajoutLivre()" #form="ngForm">
+        <div>
+            <label for="title">Titre :
+                <input type="text" id="title" name="title" [(ngModel)]="book.title" required>
+            </label>
+        </div>
+
+        <div>
+            <label for="author">Auteur :
+                <input type="text" id="author" name="author" [(ngModel)]="book.author" required>
+            </label>
+        </div>
+
+        <button class="btn" [disabled]="form.invalid">Inscrire</button>
+
+    </form>
+
+</main>

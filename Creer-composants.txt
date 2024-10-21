@@ -1,0 +1,194 @@
+# ==================== Créer component header & footer ====================
+
+ng generate component partials/header
+ng generate component partials/footer
+
+# ----- src/app/partials/header/header.component.html : -----
+
+<header>
+  <h1>Mon Header</h1>
+</header>
+
+# ----- src/app/partials/header/header.component.ts : -----
+
+imports: [RouterLink],
+
+# ----- src/app/partials/footer/footer.component.html : -----
+
+<footer>
+  <p>Mon Footer</p>
+</footer>
+
+# ----- src/app/app.component.ts, ajouter : -----
+
+imports: [RouterOutlet, HeaderComponent, FooterComponent],
+
+# ----- src/app/app.component.html : -----
+
+<app-header/>
+
+<router-outlet/>
+
+<app-footer/>
+
+
+# Démarrez l'application :
+ng serve
+
+
+# ==================== Créer autres components ====================
+
+ng generate component pages/home
+ng generate component pages/counter
+ng generate component pages/block
+ng generate component pages/series
+
+ng generate component pages/pipes --skip-tests
+
+# ----- src/app/app.routes.ts : -----
+
+export const routes: Routes = [
+  {path: '', component: HomeComponent}, // http://localhost:4200/
+  {path: 'block', component: BlockComponent}, // http://localhost:4200/block
+  {path: 'counter', component: CounterComponent}, // http://localhost:4200/counter
+  {path: 'series', component: SeriesComponent} // http://localhost:4200/series
+  {path: 'pipes', component: PipesComponent} // http://localhost:4200/pipes
+];
+
+# ----- Mettre à jour le module principal : src/app/app.component.ts : -----
+
+imports: [RouterOutlet, HeaderComponent, FooterComponent, CounterComponent, BlockComponent, SeriesComponent, PipesComponent], // CounterComponent, BlockComponent, SeriesComponent, PipesComponent
+
+# ----- Dans les html : -----
+
+<a routerLink="/" class="logo"><img src="assets/img/logo.svg" alt=""></a>
+
+<li><a routerLink="/block">Block</a></li>
+<li><a routerLink="/series">Séries</a></li>
+<li><a routerLink="/counter">Compteur</a></li>
+
+# ----- src/app/pages/pipes.component.ts : -----
+
+imports: [UpperCasePipe, LowerCasePipe, DatePipe, DecimalPipe],
+
+
+export class PipesComponent {
+
+  message: string = "Bonjour";
+  message2: string = "BONJOUR";
+  today: Date = new Date();
+  pi: number = Math.PI
+
+}
+
+# ----- src/app/pages/pipes.component.html : -----
+
+<p>{{ message | uppercase }}</p>
+<p>{{ message2 | lowercase }}</p>
+
+<p>{{ today }}</p>
+<p>{{today | date : "d/M/y"}}</p>
+
+<p>{{pi}}</p>
+<p>{{pi | number : "1.0-2"}}</p>
+
+
+# ==================== Pipe personnalisé ====================
+
+ng generate pipe utils/pipes/uppertable --skip-tests
+ng generate pipe utils/pipes/ordertable --skip-tests
+
+# ----- app/utils/pipes/uppertable.pipe.ts -----
+
+transform(value: string[]): string[] {
+  return value.map((element) => element.toUpperCase());
+}
+
+# ----- app/utils/pipes/ordertable.pipe.ts -----
+
+transform(value: string[]): string[] {
+  return value.map((element) => element.toUpperCase());
+}
+
+
+# ----- src/app/pages/pipes.component.ts : -----
+
+imports: [UpperCasePipe, LowerCasePipe, DatePipe, DecimalPipe, UppertablePipe, OrdertablePipe],
+
+
+export class PipesComponent {
+
+  tableau: string[] = ['Ranma 1/2', 'Gundam Wing', 'Dragon Ball', 'Sailormoon'];
+
+}
+
+# ----- src/app/pages/pipes.component.html : -----
+
+<h3>Majuscule</h3>
+
+@for (t of tableau | uppertable; track t; let i = $index){
+  <p>{{ t }}</p>
+}
+
+<h3>Trier</h3>
+
+<button (click)="sortTable('asc')">Trier par ordre croissant</button>
+<button (click)="sortTable('desc')">Trier par ordre décroissant</button>
+
+@for (t of tableau | ordertable: order; track t; let i = $index){
+  <p>{{ t }}</p>
+}
+
+
+# ==================== Créer autres components ====================
+
+ng generate component pages/librairie --skip-tests
+
+
+# ==================== Créer formulaire ====================
+
+ng generate component pages/formulaire --skip-tests
+
+# ----- Validation de formulaire -----
+
+# Ajouter : #form="ngForm", [disabled]="form.invalid" et required
+
+<form (ngSubmit)="ajoutLivre()" #form="ngForm">
+  <div>
+    <label for="title">Titre :
+      <input type="text" id="title" name="title" [(ngModel)]="book.title" required>
+    </label>
+  </div>
+
+  <div>
+    <label for="author">Auteur :
+      <input type="text" id="author" name="author" [(ngModel)]="book.author" required>
+    </label>
+  </div>
+
+  <button class="btn" [disabled]="form.invalid">Inscrire</button>
+</form>
+
+# ----- Formulaire réactif -----
+
+# Ajouter dans componet.ts : ReactiveFormsModule
+
+# imports: [FormsModule, ReactiveFormsModule],
+
+
+# ==================== Components parent - enfant ====================
+
+ng generate component components/parent --skip-tests
+ng generate component components/enfant --skip-tests
+
+
+# ==================== Components service ====================
+
+ng generate service utils/services/formations --skip-tests
+
+ng generate component pages/formations --skip-tests
+
+
+# ==================== Components cycle de vie ====================
+
+ng generate component components/lifecycle --skip-tests

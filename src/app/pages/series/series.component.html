@@ -1,0 +1,61 @@
+<main>
+
+  <!-- <ul>
+    @for (s of series; track s; let i = $index) {
+      <li>
+        {{ i }} : {{ s }}
+      </li>
+    }
+    @empty {
+      <p>Liste vide</p>
+    }
+  </ul> -->
+
+    
+  <!-- <ul>
+    <li>
+      Star Wars
+      <button class="mini-btn" (click)="deleteSeries(0)">Supprimer</button>
+    </li>
+    <li>
+      Retour vers le futur
+      <button class="mini-btn" (click)="deleteSeries(1)">Supprimer</button>
+    </li>
+    <li>
+      Terminator
+      <button class="mini-btn" (click)="deleteSeries(2)">Supprimer</button>
+    </li>
+  </ul> -->
+
+
+  <!-- <ul class="li-arrow">
+    @for (s of series; track s; let i = $index) {
+      <li>
+        {{ i }} : {{ s }}
+        <button class="mini-btn" (click)="deleteSeries(i)">Supprimer</button>
+      </li>
+    }
+    @empty {
+      <p>Liste vide</p>
+    }
+  </ul> -->
+
+
+  <ul class="li-arrow">
+    @for (s of series | ordertable: order; track s; let i = $index) {
+      <li class="mt-2">
+        {{ i }} : {{ s }}
+        <button class="mini-btn" (click)="deleteSeries(i)">Supprimer</button>
+      </li>
+    }
+    @empty {
+      <p>Liste vide</p>
+    }
+  </ul>
+
+  <div class="mt-2">
+    <button (click)="sortTable('asc')" class="btn mr-2">Trier par ordre croissant</button>
+    <button (click)="sortTable('desc')" class="btn">Trier par ordre décroissant</button>
+  </div>
+
+</main>
